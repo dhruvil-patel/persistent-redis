@@ -10,7 +10,9 @@
 - expire key time 
 - get key
 
+## Overview of approach
 
+Main thread continously accepts commands , and serves depending on the status of Redis and MySQL.Whenever Redis or MySQL goes down corresponding status flag is set to DOWN, and new thread starts which tries to reconnect to Redis or MySQL. After successfully reconnecting this thread stops. 
 
 ##To compile execute following command.
 
