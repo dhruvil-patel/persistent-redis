@@ -1,40 +1,19 @@
-[![Build Status](https://travis-ci.org/redis/hiredis.png)](https://travis-ci.org/redis/hiredis)
+## Assumptions
 
-# HIREDIS
+-Whenever Redis is up Mysql will be up, so no need to maintain queue.
+-When redis and mysql both down , no service will be provided.
+-When redis is down and mysql is up only get queries will be served.
 
-Hiredis is a minimalistic C client library for the [Redis](http://redis.io/) database.
+## Commands Supported
 
-It is minimalistic because it just adds minimal support for the protocol, but
-at the same time it uses a high level printf-alike API in order to make it
-much higher level than otherwise suggested by its minimal code base and the
-lack of explicit bindings for every Redis command.
+- set key value
+- expire key time 
+- get key
 
-Apart from supporting sending commands and receiving replies, it comes with
-a reply parser that is decoupled from the I/O layer. It
-is a stream parser designed for easy reusability, which can for instance be used
-in higher level language bindings for efficient reply parsing.
-
-Hiredis only supports the binary-safe Redis protocol, so you can use it with any
-Redis version >= 1.2.0.
-
-The library comes with multiple APIs. There is the
-*synchronous API*, the *asynchronous API* and the *reply parsing API*.
-
-## UPGRADING
-
-Version 0.9.0 is a major overhaul of hiredis in every aspect. However, upgrading existing
-code using hiredis should not be a big pain. The key thing to keep in mind when
-upgrading is that hiredis >= 0.9.0 uses a `redisContext*` to keep state, in contrast to
-the stateless 0.0.1 that only has a file descriptor to work with.
-
-## Synchronous API
-
-To consume the synchronous API, there are only a few function calls that need to be introduced:
+To compile execute following command.
 
 ```c
-redisContext *redisConnect(const char *ip, int port);
-void *redisCommand(redisContext *c, const char *format, ...);
-void freeReplyObject(void *reply);
+gcc proxy.c `mysql_config --cflags --libs` libhiredis.a
 ```
 
 ### Connecting
