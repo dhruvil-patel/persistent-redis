@@ -10,7 +10,9 @@
 - expire key time 
 - get key
 
-To compile execute following command.
+
+
+##To compile execute following command.
 
 ```c
 gcc proxy.c `mysql_config --cflags --libs` libhiredis.a
@@ -19,3 +21,4 @@ gcc proxy.c `mysql_config --cflags --libs` libhiredis.a
 ## Files to look
 
 - proxy.c
+- proxy.h
